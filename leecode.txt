@@ -1,0 +1,77 @@
+1.学习：如何找到一个数组中最大和第二大，不需用重排数组
+int firtSecond(int *num,int numSize){
+	int i,id;
+	int max=0;//记录最大的数
+	int less=0;//记录第二大数
+	for(i=0;i<numSize;i++){
+	 if(num[i]>max){
+	   less=max;
+	   max=nums[i];
+	   id=i;//记录最大数的下标
+		}else if(num[i]>less){
+			less=num[i];
+		}
+	}
+}
+
+
+
+2.找出三个相乘的最大数：
+1）key:1.将数组进行排序2.最大数在后面三个最大数相乘或者在两个前面最小负数和最后一个正数相乘
+int maximumProduct(int* nums, int numsSize){
+    int i,j;
+    for( i=0;i<numsSize-1;++i){
+        for(j=0;j<numsSize-i-1;j++){
+            if(nums[j]>nums[j+1]){
+                int t=nums[j];
+                nums[j]=nums[j+1];
+                nums[j+1]=t;
+            }
+        }
+    }//进行排序
+    int a=nums[numsSize-1]*nums[numsSize-2]*nums[numsSize-3];
+    int b=nums[0]*nums[1]*nums[numsSize-1];
+    return a>b?a:b;//找最大三个数相乘  由于排序算法时间过长
+}
+2）1.找出最大三个整数和最小两个负数2.将最大三个整数和最小两个负数和最大正数进行比较
+    int maximumProduct(int* nums, int numsSize){
+    int max1=INT_MIN,max2=INT_MIN,max3=INT_MIN;
+    int min1=INT_MAX,min2=INT_MAX;
+    for(int i=0;i<numsSize;++i){
+        if(nums[i]<min1){
+            min2=min1;
+            min1=nums[i];
+        }else if(nums[i]<min2){
+            min2=nums[i];
+        }
+        if(nums[i]>max1){
+            max3=max2;
+            max2=max21;
+            max1=nums[i];
+        }else if(nums[i]>max2){
+            max3=max2;
+            max2=nums[i];
+        }else if(nums[i]>max3){
+            max3=nums[i];
+        }
+    }
+    int a=max1*max2*max3;
+    int b=min1*min2*max1;
+    return a>b?a:b;
+}
+//重点：学会如何找出数组前几位最大或者后几位最小
+
+
+
+找出连续的数字最个数
+int findMaxConsecutiveOnes(int* nums, int numsSize){
+    int max=0;
+    int count=0;
+    for(int i=0;i<numsSize;++i){
+        if(nums[i])count++;
+       else count=0;
+       if(count>max) max=count;
+}
+  return max;
+ }
+//备注这个是找出连续几个1 因为是1 所以判断时nums[i]就表示
